@@ -2,11 +2,11 @@
   "author": "Mihail Costea",
   "name": "ssihttpserver",
   "description": "HTTP Server with Server Side Include (SSI)",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "bin": {
     "httpServer": "./bin/main"
   },
-  "main": "./lib/httpServer.js",
+  "main": "./lib/HttpServer.js",
   "dependencies": {
   	"argchecker": ">=0.2.3"
   },

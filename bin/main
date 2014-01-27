@@ -3,13 +3,13 @@
 /**
  * Required files.
  */
-var HttpServer = require('../lib/httpServer');
-var constants = require('../lib/constants');
+var HttpServer = require('../lib/HttpServer');
+var Constants = require('../lib/Constants');
 
 var argchecker = require('argchecker').check({
 	expect: {
-		'--port': {param: 'PORT', default: constants.DEFAULT_PORT},
-	    '--path': {param: 'PATH', default: constants.DEFAULT_PATH},
+		'--port': {param: 'PORT', default: Constants.DEFAULT_PORT},
+	    '--path': {param: 'PATH', default: Constants.DEFAULT_PATH},
 	}
 });
 

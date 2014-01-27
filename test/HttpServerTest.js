@@ -1,55 +1,48 @@
 /**
- * Constants.
- */
-const PORT = 8765;
-const TIMEOUT = 300;
-
-/**
  * Requires.
  */
 var http = require('http');
+var constants = require('../lib/Constants');
+var HttpServer = require('../lib/HttpServer');
 //var HttpServer = require('ssihttpserver'); // TODO remove
-var HttpServer = require('../lib/httpServer');
 
 module.exports = {
 	setUp : function(callback) {
-		this.server = new HttpServer({
-			port : PORT
+		this.httpServer = new HttpServer({
+			port : constants.TEST_PORT
 		});
-		this.server.start();
+		this.httpServer.start();
 		callback();
 	},
 
 	tearDown : function(callback) {
-		// clean up
-		var server = this.server;
-		setTimeout(function() {
-			server.close();
-		}, TIMEOUT);
-		
+		// Server should be closed by client on connection end.
 		callback();
 	},
 
 	test1 : function(test) {
-		runClient(PORT);
-
-		test.equals('bar', 'bar');
-		test.done();
+		var httpServer = this.httpServer;
+		httpServer.afterStart(function() {
+			runClient(constants.TEST_PORT, httpServer);
+			test.equals('bar', 'bar'); // TODO del
+			test.done();
+		});
 	}
 };
 
-function runClient(port) {
+function runClient(port, httpServer) {
 	console.log("Client port: " + port);
 	
 	http.get("http://localhost:" + port + "/index.html", function(res) {
 		console.log("Got response: " + res.statusCode);
         res.on('data', function(chunk){
-            console.log("data");
+            console.log("data"); // TODO
         });
         res.on('end', function(){
-            console.log("end");
+            httpServer.close();
         });
 	}).on('error', function(e) {
 		console.log("Got error: " + e.message);
+		httpServer.close();
 	});
 };
