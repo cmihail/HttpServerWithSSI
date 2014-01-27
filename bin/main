@@ -1,0 +1,20 @@
+#!/usr/bin/env node
+
+/**
+ * Required files.
+ */
+var HttpServer = require('../lib/httpServer');
+var constants = require('../lib/constants');
+
+var argchecker = require('argchecker').check({
+	expect: {
+		'--port': {param: 'PORT', default: constants.DEFAULT_PORT},
+	    '--path': {param: 'PATH', default: constants.DEFAULT_PATH},
+	}
+});
+
+var port = argchecker.get('--port');
+var path = argchecker.get('--path');
+
+// Start server.
+new HttpServer({port: port, path: path}).start();

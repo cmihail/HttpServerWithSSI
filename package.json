@@ -1,0 +1,29 @@
+{
+  "author": "Mihail Costea",
+  "name": "ssihttpserver",
+  "description": "HTTP Server with Server Side Include (SSI)",
+  "version": "0.1.0",
+  "bin": {
+    "httpServer": "./bin/main"
+  },
+  "main": "./lib/httpServer.js",
+  "dependencies": {
+  	"argchecker": ">=0.2.3"
+  },
+  "devDependencies": {
+    "nodeunit": ">=0.8.4"
+  },
+  "engines": {
+    "node": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cmihail/HttpServerWithSSI"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/cmihail/HttpServerWithSSI/blob/master/LICENSE"
+    }
+  ]
+}

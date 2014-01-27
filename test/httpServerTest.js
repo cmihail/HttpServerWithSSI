@@ -1,7 +1,6 @@
-// TODO maybe not by path but by using npm
-// TODO add dependency when creating npm for nodeunit or mention nodeunit must be
-// installed for tests
-
+/**
+ * Constants.
+ */
 const PORT = 8765;
 const TIMEOUT = 300;
 
@@ -9,7 +8,8 @@ const TIMEOUT = 300;
  * Requires.
  */
 var http = require('http');
-var HttpServer = require('../lib/HttpServer');
+//var HttpServer = require('ssihttpserver'); // TODO remove
+var HttpServer = require('../lib/httpServer');
 
 module.exports = {
 	setUp : function(callback) {
@@ -25,8 +25,9 @@ module.exports = {
 		var server = this.server;
 		setTimeout(function() {
 			server.close();
-			callback();
 		}, TIMEOUT);
+		
+		callback();
 	},
 
 	test1 : function(test) {
@@ -39,13 +40,14 @@ module.exports = {
 
 function runClient(port) {
 	console.log("Client port: " + port);
-	var a = http.get("http://localhost:" + port + "/index.html", function(res) {
+	
+	http.get("http://localhost:" + port + "/index.html", function(res) {
 		console.log("Got response: " + res.statusCode);
         res.on('data', function(chunk){
-            console.log("data")
+            console.log("data");
         });
         res.on('end', function(){
-            console.log("end")
+            console.log("end");
         });
 	}).on('error', function(e) {
 		console.log("Got error: " + e.message);
