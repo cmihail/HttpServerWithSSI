@@ -11,7 +11,7 @@
   	"argchecker": ">=0.2.3"
   },
   "devDependencies": {
-    "nodeunit": ">=0.8.4"
+    "mocha": ">=1.17.1"
   },
   "engines": {
     "node": "*"
