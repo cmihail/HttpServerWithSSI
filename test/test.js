@@ -12,7 +12,7 @@ var ContentTypeEnum = require('../lib/request/ContentTypeEnum');
 // var HttpServer = require('ssihttpserver'); // TODO remove
 
 // Ignore server output.
-winston.remove(winston.transports.Console);
+//winston.remove(winston.transports.Console); // TODO uncomment
 
 describe('HttpServer', function() {
 	var httpServer = null;
@@ -24,49 +24,79 @@ describe('HttpServer', function() {
 		httpServer.start();
 	});
 	
+	afterEach(function() {
+		httpServer.close();
+	});
+	
 	describe('#Head Request', function() {
 		it('should return 404 on invalid file', function(done) {
-			httpServer.afterStart(createClient(httpServer, 'HEAD',
-					'/invalidFile', test404Reponse(done)));
+			httpServer.afterStart(createClient('HEAD', '/invalidFile',
+					test404Reponse(done)));
 		});
 		
 		it('should return 404 on empty folder', function(done) {
-			httpServer.afterStart(createClient(httpServer, 'GET',
-					'/emptyFolder', test404Reponse(done)));
+			httpServer.afterStart(createClient('GET', '/emptyFolder',
+					test404Reponse(done)));
 		});
 		
 		it('should return 200 on valid file', function(done) {
-			httpServer.afterStart(createClient(httpServer, 'HEAD', 
-					'/index.html', test200Reponse('/index.html', done)));
+			httpServer.afterStart(createClient('HEAD',  '/index.html',
+					test200Reponse('/index.html', ContentTypeEnum.HTML.type, done)));
 		});
 		
 		it('should return 200 on directory with index.html', function(done) {
-			httpServer.afterStart(createClient(httpServer, 'HEAD',
-					'/', test200Reponse('/index.html', done)));
+			httpServer.afterStart(createClient('HEAD', '/',
+					test200Reponse('/index.html', ContentTypeEnum.HTML.type, done)));
 		});
 	});
 
 	describe('#GET Request', function() {
 		it('should return 404 on invalid file', function(done) {
-			httpServer.afterStart(createClient(httpServer, 'GET',
-					'/invalidFile', test404Reponse(done)));
+			httpServer.afterStart(createClient('GET', '/invalidFile',
+					test404Reponse(done)));
 		});
 		
 		it('should return 404 on empty folder', function(done) {
-			httpServer.afterStart(createClient(httpServer, 'GET',
-					'/emptyFolder', test404Reponse(done)));
+			httpServer.afterStart(createClient('GET', '/emptyFolder',
+					test404Reponse(done)));
 		});
 		
 		it('should return 200 on valid file', function(done) {
-			httpServer.afterStart(createClient(httpServer, 'GET',
-					'/index.html', test200Reponse('/index.html'),
+			httpServer.afterStart(createClient('GET', '/index.html',
+					test200Reponse('/index.html', ContentTypeEnum.HTML.type),
 					testFileContent('index.html', done)));
 		});
 
 		it('should return 200 on directory with index.html', function(done) {
-			httpServer.afterStart(createClient(httpServer, 'GET',
-					'/', test200Reponse('/index.html'),
+			httpServer.afterStart(createClient('GET', '/',
+					test200Reponse('/index.html', ContentTypeEnum.HTML.type),
 					testFileContent('index.html', done)));
+		});
+	});
+	
+	describe('#Not implemented Request', function() {
+		it('should return 501 on POST request', function(done) {
+			httpServer.afterStart(createClient('POST', '/index.html',
+					function(response) {
+				assert.equal(response.statusCode, 501);
+				done();
+			}));
+		});
+		
+		it('should return 501 on DELETE request', function(done) {
+			httpServer.afterStart(createClient('DELETE', '/index.html',
+					function(response) {
+				assert.equal(response.statusCode, 501);
+				done();
+			}));
+		});
+	});
+	
+	describe('#SSI', function() {
+		it('should process .shtml file with one directive', function(done) {
+			httpServer.afterStart(createClient('GET', '/ssi1.shtml',
+					test200Reponse('/ssi1.shtml', ContentTypeEnum.SHTML.type),
+					testFileContent('ssi1.shtml', done)));
 		});
 	});
 });
@@ -89,17 +119,17 @@ function test404Reponse(done) {
 
 /**
  * @param filename The file name.
+ * @param type The type of the file content.
  * @param done [Optional] Function used by mocha for asynchronous code testing.
  * @returns {Function} An onResponseCallback.
  */
-function test200Reponse(filename, done) {
+function test200Reponse(filename, type, done) {
 	return function(response) {
 		var stats = getFileStats(filename);
 		
 		assert.equal(response.statusCode, 200);
 		assert.equal(response.headers['content-length'], stats.size);
-		assert.equal(response.headers['content-type'],
-				ContentTypeEnum.HTML);
+		assert.equal(response.headers['content-type'], type);
 		
 		if (done !== undefined) {
 			done();
@@ -116,26 +146,21 @@ function testFileContent(filename, done) {
 	return function (data) {
 		fs.readFile(path.join(Constants.DEFAULT_PATH, filename), 'binary',
 				function(err, file) {
-			if (err) {
-				assert.equal(data, err);
-			} else {
-				assert.equal(data, file);
-			}
+			assert.ok(!err);
+			assert.equal(data, file);
 			done();
 		});
 	};
 };
 
 /**
- * @param httpServer The HttpServer instance.
  * @param httpMethod The HTTP method.
  * @param httpPath The HTTP path.
  * @param onResponseCallback Callback to call on response.
  * @param onEndCallback [Optional] Callback to call on end response.
  * @returns {Function}
  */
-function createClient(httpServer, httpMethod, httpPath, onResponseCallback,
-		onEndCallback) {
+function createClient(httpMethod, httpPath, onResponseCallback, onEndCallback) {
 	return function() {
 		var request = http.request({
 			hostname : 'localhost',
@@ -151,7 +176,6 @@ function createClient(httpServer, httpMethod, httpPath, onResponseCallback,
 			});
 			
 			response.on('end', function() {
-				httpServer.close();
 				if (onEndCallback !== undefined) {
 					onEndCallback(data);	
 				}
@@ -159,7 +183,6 @@ function createClient(httpServer, httpMethod, httpPath, onResponseCallback,
 		});
 
 		request.on('error', function(e) {
-			httpServer.close();
 			// Force fail.
 			assert.fail(false, true, 'Got error: ' + e.message);
 		});

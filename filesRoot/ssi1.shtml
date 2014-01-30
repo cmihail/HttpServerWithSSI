@@ -1,0 +1,12 @@
+<html>
+<head>
+	<title>SSI 1</title>
+</head>
+
+<body>
+	<!--#include file="included.html" -->
+	Test
+	<!--#config timefmt="%A" time="%B" --> <!--#echo   var="DATE_LOCAL" -->
+	<!--#include file="included.html" b="other" -->
+</body>
+</html>
