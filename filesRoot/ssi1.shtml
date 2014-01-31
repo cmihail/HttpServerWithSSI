@@ -5,7 +5,7 @@
 
 <body>
 	<!--#include file="included.html" -->
-	Test
+	Random text
 	<!--#config timefmt="%A" time="%B" --> <!--#echo   var="DATE_LOCAL" -->
 	<!--#include file="included.html" b="other" -->
 </body>

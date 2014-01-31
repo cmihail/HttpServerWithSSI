@@ -1,0 +1,16 @@
+<html>
+<head>
+	<title>SSI 1</title>
+</head>
+
+<body>
+	<b><i>Test</b></i>
+<br />
+This is a test ....
+	Random text
+	 
+	<b><i>Test</b></i>
+<br />
+This is a test ....
+</body>
+</html>

@@ -14,6 +14,8 @@ var ContentTypeEnum = require('../lib/request/ContentTypeEnum');
 // Ignore server output.
 //winston.remove(winston.transports.Console); // TODO uncomment
 
+// TODO if called from ".." folder, mocha doesn't work (path problems)
+
 describe('HttpServer', function() {
 	var httpServer = null;
 	beforeEach(function() {
@@ -95,8 +97,8 @@ describe('HttpServer', function() {
 	describe('#SSI', function() {
 		it('should process .shtml file with one directive', function(done) {
 			httpServer.afterStart(createClient('GET', '/ssi1.shtml',
-					test200Reponse('/ssi1.shtml', ContentTypeEnum.SHTML.type),
-					testFileContent('ssi1.shtml', done)));
+					test200Reponse('/ssi1.shtml.expected', ContentTypeEnum.SHTML.type),
+					testFileContent('ssi1.shtml.expected', done)));
 		});
 	});
 });

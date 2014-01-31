@@ -8,8 +8,8 @@
   },
   "main": "./lib/HttpServer.js",
   "dependencies": {
-  	"argchecker": ">=0.2.3",
-  	"winston": ">=0.7.2"
+    "argchecker": ">=0.2.3",
+    "winston": ">=0.7.2"
   },
   "devDependencies": {
     "mocha": ">=1.17.1"
