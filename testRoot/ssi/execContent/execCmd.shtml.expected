@@ -1,0 +1,11 @@
+<html>
+<head>
+	<title>SSI Exec</title>
+</head>
+
+<body>
+execCmd.shtml
+execCmd.shtml.expected
+
+</body>
+</html>

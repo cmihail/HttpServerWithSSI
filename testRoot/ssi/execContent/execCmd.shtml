@@ -1,0 +1,9 @@
+<html>
+<head>
+	<title>SSI Exec</title>
+</head>
+
+<body>
+<!--#exec cmd="ls testRoot/ssi/execContent" -->
+</body>
+</html>

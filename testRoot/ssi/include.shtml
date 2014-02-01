@@ -1,0 +1,9 @@
+<html>
+<head>
+	<title>SSI Include</title>
+</head>
+
+<body>
+<!--#include file="included.html" -->
+</body>
+</html>

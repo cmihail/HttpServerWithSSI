@@ -1,0 +1,11 @@
+<html>
+<head>
+	<title>SSI Include</title>
+</head>
+
+<body>
+<b><i>Test</b></i>
+<br />
+This is a test ....
+</body>
+</html>

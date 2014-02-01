@@ -1,0 +1,10 @@
+<html>
+<head>
+	<title>SSI Include</title>
+</head>
+
+<body>
+<!--#include file="../testRoot/included.html" -->
+<!--#include file="/home" -->
+</body>
+</html>
