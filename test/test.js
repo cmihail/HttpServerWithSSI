@@ -34,8 +34,8 @@ describe('Valid HttpServer', function() {
 			createClient('HEAD', '/invalidFile', test404Reponse(done));
 		});
 		
-		it('should return 404 on empty folder', function(done) {
-			createClient('GET', '/emptyFolder',	test404Reponse(done));
+		it('should return 404 on folder with no index.html', function(done) {
+			createClient('GET', '/noIndexHtmlFolder',	test404Reponse(done));
 		});
 		
 		it('should return 200 on valid html file', function(done) {
@@ -59,8 +59,8 @@ describe('Valid HttpServer', function() {
 			createClient('GET', '/invalidFile', test404Reponse(done));
 		});
 		
-		it('should return 404 on empty folder', function(done) {
-			createClient('GET', '/emptyFolder', test404Reponse(done));
+		it('should return 404 on folder with no index.html', function(done) {
+			createClient('GET', '/noIndexHtmlFolder', test404Reponse(done));
 		});
 		
 		it('should return 200 on valid html file', function(done) {
