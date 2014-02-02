@@ -4,6 +4,6 @@
 </head>
 
 <body>
-<!--#exec cmd="ls testRoot/ssi/execContent" -->
+<!--#exec cmd="ls ." -->
 </body>
 </html>
