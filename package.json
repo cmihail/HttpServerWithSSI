@@ -2,7 +2,7 @@
   "author": "Mihail Costea",
   "name": "ssihttpserver",
   "description": "HTTP Server with Server Side Include (SSI)",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "bin": {
     "httpServer": "./bin/main"
   },

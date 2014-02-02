@@ -11,8 +11,9 @@ var HttpServer = require('../lib/HttpServer');
 var ContentTypeEnum = require('../lib/request/ContentTypeEnum');
 // var HttpServer = require('ssihttpserver'); // TODO remove
 
-// Ignore server output.
-//winston.remove(winston.transports.Console); // TODO uncomment
+// Ignore server output. Comment if more information about the server is
+// needed.
+winston.remove(winston.transports.Console);
 
 describe('Valid HttpServer', function() {
 	var httpServer = null;

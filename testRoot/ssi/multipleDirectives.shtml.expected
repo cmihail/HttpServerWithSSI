@@ -7,7 +7,11 @@
 	<b><i>Test</b></i>
 <br />
 This is a test ....
+	<!--# invalidDirective file="included.html"-->
 	Random text
+	execCmd.shtml
+execCmd.shtml.expected
+
 	 
 	<b><i>Test</b></i>
 <br />
