@@ -63,7 +63,7 @@ httpServer.start();
 
 // Close server
 httpServer.close();
-```‎
+```
 
 ## Testing
 - uses "mocha" library; MUST be in the application root directory when running
