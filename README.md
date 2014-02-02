@@ -50,7 +50,7 @@ again SsiProcessor.processContentHelper() until all file content is processed.
 ```js
 var HttpServer = require('ssihttpserver');
 
-// HttpServer arguments are optionally
+// HttpServer arguments are optional
 var httpServer = new HttpServer({
 	port: [PORT],
 	path: [PATH]
