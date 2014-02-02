@@ -47,8 +47,8 @@ again SsiProcessor.processContentHelper() until all file content is processed.
 - globally: httpServer [--port PORT] [--path PATH]
 - PORT and PATH are optionally
 - default PORT is 8080 and default PATH is APP_DIR/serverRoot
-- nodejs / node are needed to run the program successful (nodejs for the httpServer,
-and node for mocha)
+- "nodejs" / "node" are needed to run the program successfully
+("nodejs" for the httpServer, and "node" for mocha)
 
 ## Usage:
 ```js
