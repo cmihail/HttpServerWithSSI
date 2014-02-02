@@ -36,15 +36,19 @@ again SsiProcessor.processContentHelper() until all file content is processed.
 - "mocha" -> testing framework
 
 ## Installation / Uninstallation:
-- npm install ssihttpserver [-g]
-- npm uninstall ssihttpserver [-g]
+- npm install [--dev] [-g] ssihttpserver
+- npm uninstall [--dev] [-g] ssihttpserver
 - [-g] is for global
+- [--dev] is needed for dev modules; if this option doesn't work, then
+"npm install ssihttpserver" and "npm install -g mocha"
 
 ## Run:
 - locally: INSTALL_DIR/node_modules/.bin/httpServer [--port PORT] [--path PATH]
 - globally: httpServer [--port PORT] [--path PATH]
 - PORT and PATH are optionally
 - default PORT is 8080 and default PATH is APP_DIR/serverRoot
+- nodejs / node are needed to run the program successful (nodejs for the httpServer,
+and node for mocha)
 
 ## Usage:
 ```js
@@ -78,6 +82,10 @@ commented in "test/test.js":
 ```js
 winston.remove(winston.transports.Console);
 ```
+- for manual testing, add more files to "serverRoot" or change the DEFAULT_PATH
+to "testRoot" and use a browser
+- "testRoot/ssi/execCgi.shtml.expected" test is taken from
+http://help.cs.umn.edu/web/cgi-tutorial
 
 ## Documentation
 - http://www.ietf.org/rfc/rfc2616.txt
